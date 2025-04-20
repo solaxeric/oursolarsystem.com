@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Solar System with Labels</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #000010 0%, #000000 100%);
+      overflow: hidden;
+    }/* Camera wrapper */
+.scene {
+  position: absolute; top: 50%; left: 50%;
+  width: 0; height: 0;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  animation: camera 60s linear infinite;
+}
+@keyframes camera {
+  from { transform: translate(-50%, -50%) translateZ(-300px) rotateX(20deg) rotateY(0deg); }
+  to   { transform: translate(-50%, -50%) translateZ(-300px) rotateX(20deg) rotateY(360deg); }
+}
+
+.solar-system {
+  position: relative;
+  width: 0; height: 0;
+  transform-style: preserve-3d;
+}
+
+.sun {
+  position: absolute; top: -60px; left: -60px;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle at 30% 30%, #FFD93B 0%, #FF8C00 80%);
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgba(255,200,0,0.9);
+  transform: translateZ(0);
+}
+
+.orbit {
+  position: absolute; top: 0; left: 0;
+  border: 2px dashed rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+.planet {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+.label {
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 14px;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Planet sizes, orbits, speeds, tilts */
+.orbit.mercury { width: 140px; height: 140px; margin: -70px; animation: spin-mercury 8s linear infinite; }
+.planet.mercury { width: 12px; height: 12px; margin: -6px 0 0 -6px; background: #bebebe; box-shadow: 0 0 8px rgba(190,190,190,0.8); transform: translateX(70px) translateZ(20px); }
+.planet.mercury .label { font-size:12px; }
+
+.orbit.venus   { width: 180px; height: 180px; margin: -90px; animation: spin-venus 12s linear infinite reverse; }
+.planet.venus   { width: 20px; height: 20px; margin: -10px 0 0 -10px; background: #e6c27a; box-shadow: 0 0 10px rgba(230,194,122,0.8); transform: translateX(90px) translateZ(30px); }
+
+.orbit.earth   { width: 220px; height: 220px; margin: -110px; animation: spin-earth 16s linear infinite; }
+.planet.earth   { width: 24px; height: 24px; margin: -12px 0 0 -12px; background: #4a90e2; box-shadow: 0 0 12px rgba(74,144,226,0.8); transform: translateX(110px) translateZ(40px); }
+
+.orbit.mars    { width: 260px; height: 260px; margin: -130px; animation: spin-mars 20s linear infinite; }
+.planet.mars    { width: 16px; height: 16px; margin: -8px 0 0 -8px; background: #d14c32; box-shadow: 0 0 10px rgba(209,76,50,0.8); transform: translateX(130px) translateZ(50px); }
+
+.orbit.jupiter { width: 350px; height: 350px; margin: -175px; animation: spin-jupiter 24s linear infinite; }
+.planet.jupiter { width: 32px; height: 32px; margin: -16px 0 0 -16px; background: #d9a066; box-shadow: 0 0 16px rgba(217,160,102,0.8); transform: translateX(175px) translateZ(60px); }
+
+.orbit.saturn  { width: 410px; height: 410px; margin: -205px; animation: spin-saturn 28s linear infinite; }
+.planet.saturn  { width: 30px; height: 30px; margin: -15px 0 0 -15px; background: #e3c58b; box-shadow: 0 0 14px rgba(227,197,139,0.8); transform: translateX(205px) translateZ(70px); }
+.planet.saturn::before { content: ''; position: absolute; width: 50px; height: 10px; background: rgba(224,197,146,0.7); border-radius: 50%; top: 10px; left: -25px; transform: rotateX(60deg); }
+
+.orbit.uranus { width: 470px; height: 470px; margin: -235px; animation: spin-uranus 32s linear infinite reverse; }
+.planet.uranus { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: #7fc5e8; box-shadow:0 0 12px rgba(127,197,232,0.8); transform: translateX(235px) translateZ(80px); }
+
+.orbit.neptune { width: 530px; height: 530px; margin: -265px; animation: spin-neptune 36s linear infinite; }
+.planet.neptune { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: #4b63a3; box-shadow:0 0 12px rgba(75,99,163,0.8); transform: translateX(265px) translateZ(90px); }
+
+/* Animations */
+@keyframes spin-mercury { from {transform: rotateX(0) rotateY(0);} to {transform: rotateX(0) rotateY(360deg);} }
+@keyframes spin-venus   { from {transform: rotateX(2deg) rotateY(0);} to {transform: rotateX(2deg) rotateY(360deg);} }
+@keyframes spin-earth   { from {transform: rotateX(5deg) rotateY(0);} to {transform: rotateX(5deg) rotateY(360deg);} }
+@keyframes spin-mars    { from {transform: rotateX(1deg) rotateY(0);} to {transform: rotateX(1deg) rotateY(360deg);} }
+@keyframes spin-jupiter { from {transform: rotateX(3deg) rotateY(0);} to {transform: rotateX(3deg) rotateY(360deg);} }
+@keyframes spin-saturn  { from {transform: rotateX(2.5deg) rotateY(0);} to {transform: rotateX(2.5deg) rotateY(360deg);} }
+@keyframes spin-uranus  { from {transform: rotateX(0) rotateY(0);} to {transform: rotateX(0) rotateY(360deg);} }
+@keyframes spin-neptune { from {transform: rotateX(4deg) rotateY(0);} to {transform: rotateX(4deg) rotateY(360deg);} }
+
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="solar-system">
+      <div class="sun"><div class="label">Sun</div></div>
+      <div class="orbit mercury"><div class="planet mercury"><div class="label">Mercury</div></div></div>
+      <div class="orbit venus"><div class="planet venus"><div class="label">Venus</div></div></div>
+      <div class="orbit earth"><div class="planet earth"><div class="label">Earth</div></div></div>
+      <div class="orbit mars"><div class="planet mars"><div class="label">Mars</div></div></div>
+      <div class="orbit jupiter"><div class="planet jupiter"><div class="label">Jupiter</div></div></div>
+      <div class="orbit saturn"><div class="planet saturn"><div class="label">Saturn</div></div></div>
+      <div class="orbit uranus"><div class="planet uranus"><div class="label">Uranus</div></div></div>
+      <div class="orbit neptune"><div class="planet neptune"><div class="label">Neptune</div></div></div>
+    </div>
+  </div>
+</body>
+</html>
